@@ -5,22 +5,38 @@
         <h1 ref="myid" class="text-xs-center">#100DaysOfCode</h1>
         <br>
         <div class="box">
+
           <v-text-field
             label="Email ID"
             solo
             flat
+            v-model="email"
           ></v-text-field>
+
           <v-text-field
             label="Password"
             type="password"
             solo
             flat
+            v-model="password"
           ></v-text-field>
-          <v-btn block color="secondary" dark>Login</v-btn>
+
+          <v-btn
+            block
+            color="secondary"
+            dark
+            @click="login()"
+          >Login</v-btn>
           <br>
-          <v-btn block flat small @click="$router.push({ name: 'register' })">
-            New User? Sign Up
+
+          <v-btn
+            block
+            flat
+            small
+            @click="$router.push({ name: 'register' })"
+          >New User? Sign Up
           </v-btn>
+
         </div>
       </v-flex>
     </v-layout>
@@ -31,27 +47,48 @@
 import Typewriter from 'typewriter-effect/dist/core';
 
 export default {
+  data() {
+    return {
+      email: '',
+      password: '',
+    };
+  },
   mounted() {
     const typewriter = new Typewriter(this.$refs.myid, {
       loop: true,
     });
 
-    typewriter.typeString('#100DaysOfCode')
-      .pauseFor(2500)
+    typewriter
+      .typeString('#100DaysOfCode')
+      .pauseFor(3500)
+
       .deleteChars(4)
-      .typeString('LeetCode')
-      .pauseFor(2500)
+      .typeString('Gym')
+      .pauseFor(3500)
+
       .deleteAll()
-      .typeString('#200DaysOfSweat')
-      .pauseFor(2500)
+      .typeString('#200DaysOfRun')
+      .pauseFor(3500)
+
       .deleteAll()
       .typeString('#50DaysOfMeditation')
-      .pauseFor(2500)
+      .pauseFor(3500)
+
       .deleteChars(10)
-      .typeString('Running')
-      .pauseFor(2500)
+      .typeString('Swim')
+      .pauseFor(3500)
+
       .deleteAll()
       .start();
+  },
+  methods: {
+    login() {
+      const formData = {
+        email: this.email,
+        password: this.password,
+      };
+      this.$store.dispatch('login', formData);
+    },
   },
 };
 </script>
