@@ -15,43 +15,55 @@ export default new Vuex.Store({
     user: null,
   },
   getters: {
-
+    user: state => state.user,
+    isAuthenticated: state => state.token !== null,
   },
   mutations: {
-    authUser(state, userData) {
+    authUser: (state, userData) => {
       state.token = userData.token;
       state.userId = userData.userId;
       state.user = userData.user;
     },
+    clearAuthData: (state, userData) => {
+      state.token = null;
+      state.userId = null;
+      state.user = null;
+    },
   },
   actions: {
-    register({ commit }, authData) {
+    register: ({ commit }, authData) => {
       axios
         .post(api.register, authData)
         .then((response) => {
           if (response.status === 201) {
-            router.push({ name: 'login' });
+            router.replace({ name: 'login' });
           }
         })
         .catch(() => {
         });
     },
 
-    login({ commit }, authData) {
+    login: ({ commit }, authData) => {
       axios
         .post(api.login, authData)
         .then((response) => {
           if (response.status === 200) {
-            console.log('here', response.data);
             commit('authUser', {
               token: response.data.token,
               userId: response.data.user.id,
               user: response.data.user,
             });
+            router.replace({ name: 'home' });
           }
         })
         .catch(() => {
         });
+    },
+
+    logout: ({ commit }) => {
+      // post to deactivate user login log in db
+      commit('clearAuthData');
+      router.replace({ name: 'login' });
     },
   },
 });
