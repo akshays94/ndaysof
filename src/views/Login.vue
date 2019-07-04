@@ -34,7 +34,14 @@
             flat
             small
             @click="$router.push({ name: 'register' })"
-          >New User? Sign Up
+          >Create a new account
+          </v-btn>
+
+          <v-btn
+            block
+            flat
+            small
+          >Forgot your password
           </v-btn>
 
         </div>

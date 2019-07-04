@@ -48,6 +48,14 @@
             @click="createAccount()"
           >Create Account</v-btn>
 
+          <v-btn
+            block
+            flat
+            small
+            @click="$router.push({ name: 'login' })"
+          >Cancel
+          </v-btn>
+
         </div>
       </v-flex>
     </v-layout>

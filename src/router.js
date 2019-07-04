@@ -3,7 +3,9 @@ import Router from 'vue-router';
 
 import store from './store';
 
+
 import Home from './views/Home.vue';
+import Goals from './views/Goals.vue';
 import Login from './views/Login.vue';
 import Register from './views/Register.vue';
 
@@ -27,13 +29,21 @@ export default new Router({
       path: '/',
       name: 'home',
       component: Home,
-      beforeEnter(to, from, next) {
-        if (store.state.token) {
-          next();
-        } else {
-          next('/login');
-        }
-      },
+      // beforeEnter(to, from, next) {
+      //   if (store.state.token) {
+      //     next();
+      //   } else {
+      //     next('/login');
+      //   }
+      // },
+      children: [
+        {
+          path: '/',
+          name: 'goals',
+          component: Goals,
+        },
+
+      ],
     },
   ],
 });

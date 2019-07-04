@@ -1,8 +1,19 @@
 <template>
-  <v-container>
-    <h3>Welcome to N Days Of => {{ user }}</h3>
-    <input type="button" value="Logout" @click="logout()">
-  </v-container>
+  <div>
+    <v-toolbar app flat>
+      <v-toolbar-title>N<b>Days</b>Of</v-toolbar-title>
+      <v-spacer></v-spacer>
+    </v-toolbar>
+    <v-content>
+      <v-container fluid>
+        <router-view></router-view>
+      </v-container>
+    </v-content>
+    <v-footer app class="pa-3">
+      <v-spacer></v-spacer>
+      <div>Built By Akshay Suresh</div>
+    </v-footer>
+  </div>
 </template>
 
 <script>
