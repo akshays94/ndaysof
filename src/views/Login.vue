@@ -106,16 +106,4 @@ export default {
     box-shadow: 0 5px 7px 0 lightgray;
     padding: 32px 48px;
   }
-
-  .vcontainer {
-    /*border: 1px solid blue;*/
-  }
-
-  .vlayout {
-    /*border: 1px solid green;*/
-  }
-
-  .vflex {
-    /*border: 1px dotted black;*/
-  }
 </style>

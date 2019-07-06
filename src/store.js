@@ -13,11 +13,15 @@ export default new Vuex.Store({
     token: null,
     userId: null,
     user: null,
+    goals: [],
   },
+
   getters: {
     user: state => state.user,
     isAuthenticated: state => state.token !== null,
+    goals: state => state.goals,
   },
+
   mutations: {
     authUser: (state, userData) => {
       state.token = userData.token;
@@ -29,7 +33,12 @@ export default new Vuex.Store({
       state.userId = null;
       state.user = null;
     },
+    addGoal: (state, newGoalData) => {
+      // state.goals.$set(0, newGoalData);
+      state.goals.push(newGoalData);
+    },
   },
+
   actions: {
     register: ({ commit }, authData) => {
       axios
@@ -53,7 +62,7 @@ export default new Vuex.Store({
               userId: response.data.user.id,
               user: response.data.user,
             });
-            router.replace({ name: 'home' });
+            router.replace({ name: 'goals' });
           }
         })
         .catch(() => {
@@ -61,9 +70,30 @@ export default new Vuex.Store({
     },
 
     logout: ({ commit }) => {
-      // post to deactivate user login log in db
+      // TODO: post to deactivate user login log in db
       commit('clearAuthData');
       router.replace({ name: 'login' });
+    },
+
+    addGoal: ({ commit, state }, newGoalData) => {
+      axios.defaults.headers.common.Authorization = `Bearer ${state.token}`;
+      axios
+        .post(api.addGoal, {
+          title: newGoalData.goalTitle,
+          days: newGoalData.goalDays,
+        })
+        .then((response) => {
+          if (response.status === 201) {
+            commit('addGoal', {
+              days: response.data.goal.days,
+              title: response.data.goal.title,
+              completionPercentage: 0,
+              currentDayNumber: 1,
+              currentDate: new Date(),
+            });
+          }
+        })
+        .catch(() => {});
     },
   },
 });

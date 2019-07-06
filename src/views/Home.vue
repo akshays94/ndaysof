@@ -3,6 +3,7 @@
     <v-toolbar app flat>
       <v-toolbar-title>N<b>Days</b>Of</v-toolbar-title>
       <v-spacer></v-spacer>
+      <input type="button" value="Logout" @click="logout()">
     </v-toolbar>
     <v-content>
       <v-container fluid>
@@ -11,7 +12,9 @@
     </v-content>
     <v-footer app class="pa-3">
       <v-spacer></v-spacer>
-      <div>Built By Akshay Suresh</div>
+      <div>
+        Made with <v-icon small color="red">favorite</v-icon>
+      </div>
     </v-footer>
   </div>
 </template>
