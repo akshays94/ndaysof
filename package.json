@@ -11,11 +11,14 @@
   },
   "dependencies": {
     "axios": "^0.19.0",
+    "chart.js": "^2.8.0",
     "core-js": "^2.6.5",
     "material-design-icons-iconfont": "^5.0.1",
+    "moment": "^2.24.0",
     "roboto-fontface": "*",
     "typewriter-effect": "^2.6.0",
     "vue": "^2.6.10",
+    "vue-chartjs": "^3.4.2",
     "vue-router": "^3.0.3",
     "vuetify": "^1.5.5",
     "vuex": "^3.0.1"

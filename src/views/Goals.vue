@@ -52,6 +52,9 @@ export default {
     AppAddGoal,
     AppGoalCard,
   },
+  created() {
+    this.fetchGoals();
+  },
   computed: {
     user() {
       return this.$store.getters.user;
@@ -61,6 +64,9 @@ export default {
     },
   },
   methods: {
+    fetchGoals() {
+      this.$store.dispatch('fetchGoals');
+    },
   },
 };
 </script>

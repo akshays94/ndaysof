@@ -3,12 +3,31 @@
     <v-toolbar app flat>
       <v-toolbar-title>N<b>Days</b>Of</v-toolbar-title>
       <v-spacer></v-spacer>
-      <input type="button" value="Logout" @click="logout()">
+      <button @click="logout()">
+        <v-icon>power_settings_new</v-icon>
+      </button>
     </v-toolbar>
     <v-content>
       <v-container fluid>
         <router-view></router-view>
       </v-container>
+
+      <v-snackbar
+        v-model="snackbarStatus"
+        :right="true"
+        :timeout="snackbarTimeout"
+        :top="true"
+      >
+        {{ snackbarText }}
+        <v-btn
+          color="pink"
+          flat
+          @click="snackbarStatus = false"
+        >
+          Close
+        </v-btn>
+      </v-snackbar>
+
     </v-content>
     <v-footer app class="pa-3">
       <v-spacer></v-spacer>
@@ -22,8 +41,19 @@
 <script>
 export default {
   computed: {
-    user() {
-      return this.$store.getters.user;
+    snackbarTimeout() {
+      return this.$store.getters.snackbarTimeout;
+    },
+    snackbarText() {
+      return this.$store.getters.getSnackbarText;
+    },
+    snackbarStatus: {
+      get() {
+        return this.$store.getters.getSnackbarStatus;
+      },
+      set() {
+        this.$store.commit('UNSET_SNACKBAR');
+      },
     },
   },
   methods: {

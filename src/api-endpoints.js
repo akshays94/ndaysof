@@ -1,5 +1,6 @@
 module.exports = {
   register: '/auth/register',
   login: '/auth/login',
-  addGoal: '/goals',
+  goals: '/goals',
+  goal: '/goals/:goalId',
 };
