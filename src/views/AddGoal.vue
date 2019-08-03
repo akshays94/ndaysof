@@ -52,6 +52,7 @@ export default {
       this.$store.dispatch('addGoal', {
         goalDays: parseInt(this.goalDays, 10),
         goalTitle: this.goalTitle,
+        startDate: '01-01-2019'
       });
     },
   },

@@ -27,12 +27,13 @@
 
 
     <div class="daycontainer pa-3 mt-2">
-      <b>Day {{ goal.current_day_number }}</b> - {{ goal.start_date }}
+      <b>Day {{ goal.current_day_number }}</b> - {{ goal.current_day_date }}
       <br>
       <v-btn
         small
         color="green"
         class="ma-0 mr-2 mt-2 white--text"
+        @click="checkDay"
       >Check</v-btn>
 
       <v-btn
@@ -40,6 +41,7 @@
         outline
         color="red"
         class="ma-0 mt-2"
+        @click="missDay"
       >Miss</v-btn>
     </div>
 
@@ -51,11 +53,23 @@ export default {
   props: [
     'goal',
   ],
-  data() {
-    return {
-      goalTitle: `#${this.goal.days}DaysOf${this.goal.title}`,
-    };
+  computed: {
+    goalTitle () {
+      return `#${this.goal.days}DaysOf${this.goal.title}`
+    }
   },
+  methods: {
+    checkDay () {
+      // console.log('day checked');
+      this.$store.dispatch('checkDay', {
+        goalId: this.goal.id,
+        dayNumber: this.goal.current_day_number
+      });
+    }, 
+    missDay () {
+      // console.log('day missed');
+    }
+  }
 };
 </script>
 

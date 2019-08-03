@@ -55,10 +55,12 @@ export default new Vuex.Store({
       state.goals = [];
     },
     SET_GOAL: (state, newGoalData) => {
-      // state.goals.$set(0, newGoalData);
       state.goals.push(newGoalData);
       // state.goals.unshift(newGoalData);
+      // state.goals.splice(0, 0, newGoalData);
+      // state.goals.$set(0, newGoalData);
     },
+    UPDATE_GOAL: (state) => {},
     GET_GOALS: (state, fetchedGoals) => state.goals.push(...fetchedGoals),
   },
 
@@ -119,17 +121,30 @@ export default new Vuex.Store({
         .post(api.goals, {
           title: newGoalData.goalTitle,
           days: newGoalData.goalDays,
+          startDate: newGoalData.startDate,
         })
         .then((response) => {
           if (response.status === 201) {
-            commit('SET_GOAL', {
-              days: response.data.goal.days,
-              title: response.data.goal.title,
-              completion_percentage: 0,
-              current_day_number: 1,
-              start_date: moment().format('D MMMM YYYY'),
-            });
+            commit('SET_GOAL', response.data);
             commit('SET_SNACKBAR_TEXT', 'New goal created');
+            commit('SET_SNACKBAR');
+          }
+        })
+        .catch(() => {});
+    },
+
+    checkDay: ({ commit, state }, newCheckData) => {
+      axios.defaults.headers.common.Authorization = `Bearer ${state.token}`;
+      let url = api.checkDay;
+      url = url.replace(':goalId', newCheckData.goalId);
+
+      axios
+        .post(url, {
+          dayNumber: newCheckData.dayNumber,
+        })
+        .then((response) => {
+          if (response.status === 201) {
+            commit('SET_SNACKBAR_TEXT', `Checked Day ${newCheckData.dayNumber}`);
             commit('SET_SNACKBAR');
           }
         })
