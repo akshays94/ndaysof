@@ -14,7 +14,12 @@
         >{{ goalTitle }}</router-link>
 
         <div class="subheader mt-1">
-          {{ goal.completion_percentage }}% Complete
+          <span v-if="goal.days_completed == 0">Not yet started</span>
+          <span v-else>
+            Completed {{ goal.days_completed }} 
+            <span v-if="goal.days_completed > 1">days</span>
+            <span v-else>day</span> | {{ goal.completion_percentage }}%
+          </span>
         </div>
       </div>
       <div class="box--2">
@@ -26,10 +31,16 @@
     </div>
 
 
-    <div class="daycontainer pa-3 mt-2">
-      <b>Day {{ goal.current_day_number }}</b> - {{ goal.current_day_date }}
+    <div class="daycontainer pa-3 mt-2 userselectnone">
+      <span v-if="goal.completion_percentage < 100">
+        <b>For Day {{ goal.current_day_number }}</b> - {{ goal.current_day_date }}
+      </span>
+      <span v-else>
+        <b>Goal Completed</b> <v-icon small color="green">check</v-icon>
+      </span>
       <br>
       <v-btn
+        :disabled="goal.completion_percentage >= 100 ? true : false"
         small
         color="green"
         class="ma-0 mr-2 mt-2 white--text"
@@ -37,6 +48,7 @@
       >Check</v-btn>
 
       <v-btn
+        :disabled="goal.completion_percentage >= 100 ? true : false"
         small
         outline
         color="red"
@@ -52,6 +64,7 @@
 export default {
   props: [
     'goal',
+    'goalIndex'
   ],
   computed: {
     goalTitle () {
@@ -60,14 +73,20 @@ export default {
   },
   methods: {
     checkDay () {
-      // console.log('day checked');
       this.$store.dispatch('checkDay', {
         goalId: this.goal.id,
-        dayNumber: this.goal.current_day_number
+        dayNumber: this.goal.current_day_number,
+        goalIndex: this.goalIndex,
+        goalTitle: this.goal.title
       });
     }, 
     missDay () {
-      // console.log('day missed');
+      this.$store.dispatch('missDay', {
+        goalId: this.goal.id,
+        dayNumber: this.goal.current_day_number,
+        goalIndex: this.goalIndex,
+        goalTitle: this.goal.title
+      });
     }
   }
 };
@@ -90,5 +109,8 @@ export default {
 
 .daycontainer {
   background: #efefef;
+}
+.userselectnone {
+  user-select: none;
 }
 </style>

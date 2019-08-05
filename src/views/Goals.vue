@@ -17,7 +17,7 @@
           v-for="(goal, index) in goals"
           :key="`${index}`" xs12 sm6 md4 lg4
           class=" pa-3">
-          <AppGoalCard :goal="goal"></AppGoalCard>
+          <AppGoalCard :goal="goal" :goalIndex="index"></AppGoalCard>
         </v-flex>
 
     </v-layout>

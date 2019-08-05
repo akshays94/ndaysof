@@ -4,9 +4,7 @@
     <v-layout justify-center>
       <v-flex xs12 sm12 md9>
         <v-card class="mb-5 pa-3">
-          <!-- <h5>{{ goal }}</h5> -->
-          <h1>{{ goalTitle }}</h1>
-          <!-- <h4>{{ goal.completion_percentage }}% Complete</h4> -->
+          back -<h1>{{ goalTitle }}</h1>
         </v-card>
       </v-flex>
     </v-layout>

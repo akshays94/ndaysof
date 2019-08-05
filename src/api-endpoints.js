@@ -4,4 +4,5 @@ module.exports = {
   goals: '/goals',
   goal: '/goals/:goalId',
   checkDay: '/goals/:goalId/check',
+  missDay: '/goals/:goalId/miss',
 };
